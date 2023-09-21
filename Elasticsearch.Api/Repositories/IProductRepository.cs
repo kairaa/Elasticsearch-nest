@@ -1,7 +1,7 @@
 ﻿using System.Collections.Immutable;
+using Elastic.Clients.Elasticsearch;
 using Elasticsearch.Api.Dtos;
 using Elasticsearch.Api.Models;
-using Nest;
 
 namespace Elasticsearch.Api.Repositories
 {

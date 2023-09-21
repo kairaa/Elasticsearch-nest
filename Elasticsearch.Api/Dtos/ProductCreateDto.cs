@@ -1,4 +1,5 @@
-﻿using Elasticsearch.Api.Models;
+﻿using System.Drawing;
+using Elasticsearch.Api.Models;
 
 namespace Elasticsearch.Api.Dtos
 {

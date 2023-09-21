@@ -2,6 +2,6 @@
 {
     public static class Indexes
     {
-        public static string ProductsIndex = "products1";
+        public static string ProductsIndex = "products";
     }
 }
