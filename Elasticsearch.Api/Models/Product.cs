@@ -1,12 +1,9 @@
 ﻿using Elasticsearch.Api.Dtos;
-using Nest;
 
 namespace Elasticsearch.Api.Models
 {
     public class Product
     {
-        //id asıl data yerine metadata'da tutuldugu icin _id seklinde isimlendirilmeli
-        [PropertyName("_id")]
         public string Id { get; set; } = null!;
         public string Name { get; set; } = null!;
         public decimal Price { get; set; }

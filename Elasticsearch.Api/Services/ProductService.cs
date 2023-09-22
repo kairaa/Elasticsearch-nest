@@ -1,8 +1,8 @@
 ﻿using System.Collections.Immutable;
+using Elastic.Clients.Elasticsearch;
 using Elasticsearch.Api.Dtos;
 using Elasticsearch.Api.Models;
 using Elasticsearch.Api.Repositories;
-using Nest;
 
 namespace Elasticsearch.Api.Services
 {
@@ -26,15 +26,17 @@ namespace Elasticsearch.Api.Services
         {
             var response = await _repository.DeleteAsync(id);
             
-            if(!response.IsValid && response.Result == Result.NotFound)
+            if(!response.IsValidResponse && response.Result == Result.NotFound)
             {
                 _logger.LogError($"could not find an item with id {id}");
                 return ResponseDto<bool>.Fail($"could not find an item with id {id}", System.Net.HttpStatusCode.NotFound);
             }
 
-            if (!response.IsValid)
+            if (!response.IsValidResponse)
             {
-                _logger.LogError(response.OriginalException, response.ServerError.Error.ToString());
+                //if has an error, assign it to exception variable
+                response.TryGetOriginalException(out Exception? exception);
+                _logger.LogError(exception, response.ElasticsearchServerError.Error.ToString());
                 return ResponseDto<bool>.Fail($"something went wrong on {nameof(DeleteAsync)}", System.Net.HttpStatusCode.InternalServerError);
             }
 
